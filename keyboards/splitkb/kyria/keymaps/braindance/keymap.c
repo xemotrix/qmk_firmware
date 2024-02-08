@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SYM] = LAYOUT(
       XXXXXXX,    TILD,    LINE,   DQUOT,  LBRACK,  LESSTH,                                     GREATTH,  RBRACK,    BANG,  EQUALS,   QUEST,   SQUOT,
-      XXXXXXX,   GORRO,    PERC,    DOLL,  LPAREN, KC_PAST,                                     KC_PPLS,  RPAREN,  ESP_AT, ESP_OCT, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX,    PERC,    DOLL,  LPAREN, KC_PAST,                                     KC_PPLS,  RPAREN,  ESP_AT, ESP_OCT, XXXXXXX, XXXXXXX,
       XXXXXXX,  BACKTK,    AMPS,  CIRCUN,  LCURLY, BACKSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS,  RCURLY,   SEMIC,   COLON, KC_SLSH, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
