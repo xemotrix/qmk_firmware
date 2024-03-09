@@ -11,60 +11,17 @@ enum layers {
 };
 
 
-// Aliases for readability
-#define QWERTY   DF(_QWERTY)
-
-#define SYM      MO(_SYM)
-#define NAV      MO(_NAV)
-#define FKEYS    MO(_FUNCTION)
-#define ADJUST   MO(_ADJUST)
-
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
-
-/* #define LT_SPC   LT(_NUM, KC_SPC) */
-/* #define LT_TAB   LT(_NAV, KC_TAB) */
-#define LT_ESC   LT(_SYM, KC_ESC)
-
+// Home row mods:
 #define MT_A MT(MOD_LCTL, KC_A)
 #define MT_S MT(MOD_LALT, KC_S)
 #define MT_D MT(MOD_LGUI, KC_D)
 #define MT_F MT(MOD_LSFT, KC_F)
-
 #define MT_J MT(MOD_RSFT, KC_J)
 #define MT_K MT(MOD_RGUI, KC_K)
 #define MT_L MT(MOD_RALT, KC_L)
 #define MT_SCLN MT(MOD_RCTL, KC_SCLN)
 
-#define ESP_AT RALT(KC_2)
-#define ESP_OCT RALT(KC_3)
-#define LCURLY RALT(KC_QUOTE)
-#define RCURLY RALT(KC_BSLS)
-#define LPAREN LSFT(KC_8)
-#define RPAREN LSFT(KC_9)
-#define LBRACK RALT(KC_LBRC)
-#define RBRACK RALT(KC_RBRC)
-#define BANG LSFT(KC_1)
-#define DQUOT LSFT(KC_2)
-#define DOLL LSFT(KC_4)
-#define PERC LSFT(KC_5)
-#define AMPS LSFT(KC_6)
-#define SQUOT KC_MINUS
-#define TILD RALT(KC_SCLN)
-#define EQUALS LSFT(KC_0)
-
-#define LINE RALT(KC_1)
-#define BACKSLS RALT(KC_NUBS)
-#define QUEST LSFT(KC_MINS)
-#define CIRCUN LSFT(KC_LBRC)
-#define BACKTK KC_LBRC
-#define LESSTH KC_GRV
-#define GREATTH LSFT(KC_GRV)
-#define SEMIC LSFT(KC_COMM)
-#define COLON LSFT(KC_DOT)
-#define GORRO LSFT(KC_LBRC)
+#define ACCENT LALT(KC_E)
 
 #define VOL_UP KC_KB_VOLUME_UP
 #define VOL_DWN KC_KB_VOLUME_DOWN
@@ -73,17 +30,23 @@ enum layers {
 #define NAV_ESC LT(_NAV, KC_ESC)
 #define SYM_ENT LT(_SYM, KC_ENT)
 
+enum custom_keycodes {
+    QMK_ENYE = SAFE_RANGE,
+};
+
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
+//
+#define __TODO_ XXXXXXX
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-         BANG,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   SQUOT,
-       KC_TAB,    MT_A,    MT_S,    MT_D,    MT_F,    KC_G,                                        KC_H,    MT_J,    MT_K,    MT_L, MT_SCLN, KC_QUOT,
-   LCTL(KC_A),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,MO(_MED),  KC_MEH, _______, _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   QUEST,
+      KC_EXLM,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_QUOT,
+       KC_TAB,    MT_A,    MT_S,    MT_D,    MT_F,    KC_G,                                        KC_H,    MT_J,    MT_K,    MT_L, MT_SCLN,  ACCENT,
+   LCTL(KC_A),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,MO(_MED),  KC_MEH, _______, _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_MINS, KC_SLSH,
                                OSL(_FUN), _______,MO(_NUM),  KC_SPC, NAV_ESC, SYM_ENT, KC_BSPC, _______, _______, _______
     ),
     [_NUM] = LAYOUT(
@@ -99,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_SYM] = LAYOUT(
-      XXXXXXX,    TILD,    LINE,   DQUOT,  LBRACK,  LESSTH,                                     GREATTH,  RBRACK,    BANG,  EQUALS,   QUEST,   SQUOT,
-      XXXXXXX, XXXXXXX,    PERC,    DOLL,  LPAREN, KC_PAST,                                     KC_PPLS,  RPAREN,  ESP_AT, ESP_OCT, XXXXXXX, XXXXXXX,
-      XXXXXXX,  BACKTK,    AMPS,  CIRCUN,  LCURLY, BACKSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS,  RCURLY,   SEMIC,   COLON, KC_SLSH, XXXXXXX,
+      XXXXXXX, KC_TILD, KC_PIPE, KC_DQUO, KC_LBRC,   KC_LT,                                       KC_GT, KC_RBRC, KC_EXLM,  KC_EQL, KC_QUES, KC_QUOT,
+      XXXXXXX, XXXXXXX, KC_PERC,  KC_DLR, KC_LPRN, KC_ASTR,                                     KC_PLUS, KC_RPRN,   KC_AT, KC_HASH, XXXXXXX, XXXXXXX,
+      XXXXXXX,  KC_GRV, KC_AMPR, KC_CIRC, KC_LCBR, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH, KC_RCBR, XXXXXXX, XXXXXXX, KC_MINS, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_MED] = LAYOUT(
@@ -116,35 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
-
-
-
-// /*
-//  * Layer template
-//  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
-//  */
-//     [_LAYERINDEX] = LAYOUT(
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-//                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-//     ),
 };
-/* const uint16_t PROGMEM num_layer_combo[] = {KC_SPC, KC_BSPC, COMBO_END}; */
-/* const uint16_t PROGMEM num_layer_combo[] = {KC_SPC, MT_F, COMBO_END}; */
-/* combo_t key_combos[] = { */
-/*     COMBO(num_layer_combo, MO(_NUM)), */
-/* }; */
 
 
 bool caps_word_press_user(uint16_t keycode) {
