@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
       XXXXXXX, KC_TILD, KC_PIPE, KC_DQUO, KC_LBRC,   KC_LT,                                       KC_GT, KC_RBRC, KC_EXLM,  KC_EQL, KC_QUES, KC_QUOT,
       XXXXXXX, XXXXXXX, KC_PERC,  KC_DLR, KC_LPRN, KC_ASTR,                                     KC_PLUS, KC_RPRN,   KC_AT, KC_HASH, XXXXXXX, XXXXXXX,
-      XXXXXXX,  KC_GRV, KC_AMPR, KC_CIRC, KC_LCBR, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH, KC_RCBR, XXXXXXX, XXXXXXX, KC_MINS, XXXXXXX,
+      XXXXXXX,  KC_GRV, KC_AMPR, KC_CIRC, KC_LCBR, KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH, KC_RCBR, KC_SCLN, KC_COLN, KC_MINS, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_MED] = LAYOUT(
@@ -87,6 +87,7 @@ bool caps_word_press_user(uint16_t keycode) {
         // Keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
         case KC_SLSH:
+        case KC_MINS:
         case KC_SCLN: // because spanish layout
             add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
             return true;
