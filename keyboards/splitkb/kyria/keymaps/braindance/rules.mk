@@ -4,5 +4,7 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
 CAPS_WORD_ENABLE = yes     # Enable caps word
 COMMAND_ENABLE = no
+CONSOLE_ENABLE = yes
+NKRO_ENABLE = yes
 # COMBO_ENABLE = yes
 # TRI_LAYER_ENABLE = yes

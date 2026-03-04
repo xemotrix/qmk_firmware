@@ -31,13 +31,13 @@
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    ifndef RGBLIGHT_LIMIT_VAL
-#    	define RGBLIGHT_LIMIT_VAL 150
+#        define RGBLIGHT_LIMIT_VAL 150
 #    endif
 #endif
 
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 190
+#define FORCE_NKRO
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 /* #define OLED_DISPLAY_128x64 */
-

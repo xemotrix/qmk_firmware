@@ -1,6 +1,10 @@
 #include QMK_KEYBOARD_H
 #include <math.h>
 
+#ifdef CONSOLE_ENABLE
+#    include "print.h"
+#endif
+
 enum layers {
     _QWERTY = 0,
     _NUM,
@@ -9,8 +13,8 @@ enum layers {
     _SYM,
     _FUN,
     _GAME,
+    _STENO,
 };
-
 
 // Home row mods:
 #define MT_A MT(MOD_LCTL, KC_A)
@@ -34,7 +38,6 @@ enum layers {
 enum custom_keycodes {
     QMK_ENYE = SAFE_RANGE,
 };
-
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -77,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FUN] = LAYOUT(
       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                      XXXXXXX,   KC_F7,   KC_F8,   KC_F9,  KC_F11, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                       KC_F10,   KC_F4,   KC_F5,   KC_F6,  KC_F12, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TO(_GAME), XXXXXXX, XXXXXXX, XXXXXXX,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TO(_GAME), TO(_STENO), XXXXXXX, XXXXXXX,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, XXXXXXX,
                                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_GAME] = LAYOUT(
@@ -86,8 +89,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,MO(_MED),TO(_QWERTY), XXXXXXX, XXXXXXX,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_MINS, KC_SLSH,
                                  XXXXXXX, XXXXXXX, XXXXXXX,  KC_SPC, KC_ESC,      KC_SPC,    KC_1, XXXXXXX, XXXXXXX, XXXXXXX
     ),
+    [_STENO] = LAYOUT(
+      KC_EXLM,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC,
+       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+   LCTL(KC_A),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX, TO(_QWERTY), XXXXXXX, XXXXXXX, KC_N,    KC_M, KC_COMM,  KC_DOT, KC_MINS, KC_SLSH,
+                                           XXXXXXX, XXXXXXX,XXXXXXX,  KC_C, KC_V, KC_N, KC_M, XXXXXXX, XXXXXXX, XXXXXXX
+    ),
 };
 
+
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CONSOLE_ENABLE
+        const bool is_combo = record->event.type == COMBO_EVENT;
+        uprintf("0x%04X,%u,%u,%u,%u,0x%02X,0x%02X,%u\n",
+             keycode,
+             is_combo ? 254 : record->event.key.row,
+             is_combo ? 254 : record->event.key.col,
+             get_highest_layer(layer_state),
+             record->event.pressed,
+             get_mods(),
+             get_oneshot_mods(),
+             record->tap.count
+        );
+    #endif
+    return true;
+}
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
